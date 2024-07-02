@@ -19,15 +19,15 @@ def scenario1():
         assert "RedRabbit Staging" in title
 
         driver.implicitly_wait(2)
-        browser.click(locate.residential)
-        browser.click(locate.blocked_drain)
-        browser.click(locate.window_broken)
+        browser.click(locate.RESIDENTIAL)
+        browser.click(locate.BLOCKED_DRAIN)
+        browser.click(locate.WINDOW_BROKEN)
 
         driver.implicitly_wait(2)
-        browser.fill("Kitchen", locate.where_is_your_problem_1)
-        browser.upload(locate.photo_1, "/resources/img.png")
-        browser.fill("Bathroom", locate.where_is_your_problem_2)
-        browser.upload(locate.photo_2, "/resources/img_1.png")
+        browser.fill("Kitchen", locate.WHERE_1)
+        browser.upload(locate.PHOTO_1, "/resources/img.png")
+        browser.fill("Bathroom", locate.WHERE_2)
+        browser.upload(locate.PHOTO_2, "/resources/img_1.png")
 
         browser.fill_by_id("TEST1234", "property_reference")
         browser.fill_by_id("222 No Man's land, Nowhere", "address")
@@ -38,7 +38,7 @@ def scenario1():
 
         driver.implicitly_wait(2)
         time.sleep(2)
-        browser.click(locate.submit)
+        browser.click(locate.SUBMIT_1)
 
         time.sleep(4)
         message = driver.find_element(By.TAG_NAME, 'h1')
@@ -67,13 +67,13 @@ def scenario2():
         assert "RedRabbit Staging" in title
 
         driver.implicitly_wait(2)
-        browser.click(locate.commercial)
-        browser.click(locate.not_listed)
-        browser.fill("Bedroom", locate.where_is_your_problem_1)
-        browser.fill("Floor", locate.issue_item_1)
+        browser.click(locate.COMMERCIAL)
+        browser.click(locate.NOT_LISTED)
+        browser.fill("Bedroom", locate.WHERE_1)
+        browser.fill("Floor", locate.ISSUE_ITEM_1)
         s = "How long does a string have to be for a string to be too long\n"
         for num in range(4):
-            browser.fill(s, locate.description_1)
+            browser.fill(s, locate.DESCRIPTION_1)
         browser.fill_by_id("TEST1234", "property_reference")
         browser.fill_by_id("222 No Man's land, Nowhere", "address")
         browser.fill_by_id("test_name", "name")
@@ -82,12 +82,12 @@ def scenario2():
         browser.fill_by_id("Please fix it asap", "comments")
 
         time.sleep(2)
-        browser.click(locate.submit_2)
-        element = browser.find_by_xpath(locate.description_1)
+        browser.click(locate.SUBMIT_2)
+        element = browser.find_by_xpath(locate.DESCRIPTION_1)
         actions = ActionChains(driver)
         actions.move_to_element(element).perform()
         time.sleep(2)
-        message = browser.find_by_xpath(locate.error_1)
+        message = browser.find_by_xpath(locate.ERROR_1)
         assert message.text == "The description must not be greater than 200 characters."
 
         return True
@@ -112,10 +112,10 @@ def scenario3():
         assert "RedRabbit Staging" in title
 
         driver.implicitly_wait(2)
-        browser.click(locate.body_corporate)
-        browser.click(locate.irrigation)
-        browser.clear(locate.description_1)
-        browser.fill("Leaking water", locate.description_1)
+        browser.click(locate.BODY_CORPORATE)
+        browser.click(locate.IRRIGATION)
+        browser.clear(locate.DESCRIPTION_1)
+        browser.fill("Leaking water", locate.DESCRIPTION_1)
         browser.fill_by_id("TEST1234", "property_reference")
         browser.fill_by_id("222 No Man's land, Nowhere", "address")
         browser.fill_by_id("test_name", "name")
@@ -124,13 +124,13 @@ def scenario3():
         browser.fill_by_id("Please fix it asap", "comments")
 
         time.sleep(2)
-        browser.click(locate.submit_2)
+        browser.click(locate.SUBMIT_2)
         driver.find_element(By.ID, "reporter_email")
         element = driver.find_element(By.ID, "reporter_email")
         actions = ActionChains(driver)
         actions.move_to_element(element).perform()
         time.sleep(2)
-        message = browser.find_by_xpath(locate.error_2)
+        message = browser.find_by_xpath(locate.ERROR_2)
         assert message.text == "The email must be a valid email address."
         return True
 
@@ -155,21 +155,21 @@ def scenario4():
         assert "RedRabbit Staging" in title
 
         driver.implicitly_wait(2)
-        browser.click(locate.residential)
-        browser.click(locate.garage)
-        browser.click(locate.oven)
-        browser.click(locate.tap)
-        browser.fill("Garage", locate.where_is_your_problem_1)
-        browser.fill("Kitchen", locate.where_is_your_problem_2)
-        browser.fill("Outside", locate.where_is_your_problem_3)
+        browser.click(locate.RESIDENTIAL)
+        browser.click(locate.GARAGE)
+        browser.click(locate.OVEN)
+        browser.click(locate.TAP)
+        browser.fill("Garage", locate.WHERE_1)
+        browser.fill("Kitchen", locate.WHERE_2)
+        browser.fill("Outside", locate.WHERE_3)
 
         time.sleep(2)
-        browser.click(locate.roof)
+        browser.click(locate.ROOF)
 
-        while not driver.find_element(By.XPATH, locate.popup).is_displayed():
+        while not driver.find_element(By.XPATH, locate.POPUP).is_displayed():
             driver.implicitly_wait(2)
-            browser.click(locate.roof)
-        message = browser.find_by_xpath(locate.popup)
+            browser.click(locate.ROOF)
+        message = browser.find_by_xpath(locate.POPUP)
         assert message.text == "Maximum issues reached"
         return True
 
